@@ -1,0 +1,15 @@
+{%extends "home.html"%}
+
+{%block recommend%}
+    <div class="headCont">
+        <h3 id="resultHead">After {{movie}}, Next up watch - </h3>
+    </div>
+    <div id="movieres" class="flex-row">
+        {%for res,pos in movie_data%}
+        <div class="cards container flex-col">
+            <img class="resultImg" src="{{pos}}">
+            <p class="movieName">{{res}}</p>
+        </div>
+        {% endfor %}
+    </div>
+{%endblock%}

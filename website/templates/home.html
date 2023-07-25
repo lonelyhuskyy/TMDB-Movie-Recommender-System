@@ -1,0 +1,77 @@
+{%extends "base.html"%}
+
+{%block home_slider%}
+<div id="home">
+    <div id="homeWall" class="container-fluid">
+        <form method="post" action="/recommend">
+            <div id="formCont" class="flex-col">
+                <div class="wrapper container">
+                    <div class="select-btn">
+                        <span>Select a Movie</span>
+                        <i id="drop-arrow" class="fa fa-angle-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="drop-content">
+                        <div class="search">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <input type="text" id="searchInput" placeholder="Search any Movie">
+                        </div>
+                        <ul class="options">
+                            {% for title in movie_titles %}
+                            <li class="list-group-item"><span>
+                                {{title}}
+                            </span></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <input type="text" id="selectedMovie"  name="selectedMovie" style="display:none;" placeholder="Selected Movie" readonly>
+                <button id="btn" type="submit">Recommend</button>
+            </div>
+        </form>
+    </div> 
+
+    <div id="msgFlash">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %} {% if category ==
+        'error' %}
+        <div id="error" class="alert alert-danger alter-dismissable fade show" role="alert">
+          {{ message }}
+          <button id="closeBtn" type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %} {% endfor %} {% endif %} {% endwith %}
+    </div>
+
+    <div id="predict"  class="container">
+        {% if not_recommend_route %}
+        <p class="welcome-text">
+            Welcome to TMDb Movie Recommender, where cinematic magic meets your personal taste! Prepare to embark on an
+            extraordinary journey through a world of movies as we unveil the power of our cutting-edge recommendation
+            system.
+
+            Lights, camera, action! Get ready to explore an extensive collection of films, catering to all your
+            cinematic cravings. From heart-pounding thrillers that will keep you on the edge of your seat, to
+            heartwarming romances that will make you believe in love again, TMDb Movie Recommender has it all.
+
+            Step into our virtual theater, where our intelligent algorithm works tirelessly to curate a handpicked
+            selection specifically tailored to your preferences. Discover hidden gems, delve into blockbuster hits, and
+            unearth lesser-known masterpieces. We have the perfect formula to transform your movie nights into
+            unforgettable experiences.
+
+            Unleash your inner film aficionado as we present you with hidden gems, blockbusters, and everything in
+            between. Our vibrant community of movie enthusiasts is always buzzing with recommendations, reviews, and
+            discussions, creating an immersive atmosphere you won't want to miss.
+
+            Whether you're a casual viewer or a dedicated cinephile, TMDb Movie Recommender is your ticket to cinematic
+            bliss. Discover new favorites, relive timeless classics, and let our unparalleled movie expertise guide you
+            towards unforgettable entertainment.
+
+            So, grab your popcorn, sink into your favorite spot, and let the silver screen captivate your senses.
+        </p>
+        {% endif %}
+        {%block recommend%}
+        {%endblock%}
+    </div>
+</div>
+{%endblock%}
